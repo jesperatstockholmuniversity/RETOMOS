@@ -14,12 +14,13 @@ features from Cuckoo reports and retomos_malware_classifier.py that
 classifies Cuckoo reports as either Tor dependant or not.
 
 Usage:
-    retomos.py -i <input_file.json>
+    retomos.py -i <input_file>
+    retomos.py -c <sha256>
     retomos.py -d <training_database> [-m <classification_model>
     | --model <classification_model>]
     retomos.py -i <malware_analysis_file> -m <classification_model>
+    retomos.py -t target/class label
     retomos.py -f -i <input_file>
-    retomos.py -w -i <input_file>
     retomos.py -i <input_file.json> -o <output_file.png>
     retomos.py -u -i <input_file> -m <clssification_model>
 
@@ -27,17 +28,18 @@ Examples:
     retomos.py -d malware_behaviour_log.db
     retomos.py -d malware_behaviour_log.db -m naive_bayes
     retomos.py -h | --help
-    retomos.py -w -i <input_file>
     retomos.py -f -i <input_file(s)> -d <database>
+    retomos.py -c <sha256>
 
 Options:
     -i --input          Input file(s) to analyse (Cuckoo report in .json format)
+    -c --check          Check if hash sum (SHA256) exists in the database
     -o --output         Output file for graphs (.png format)
     -m --model <classification_model>      The type of classification model to use
         SVM, LR, NB, or ALL (default: ALL) [default: ALL]
     -d --database       Training database to use for the classification
-    -f --feed           Feed the database with new malware analysis reports (.json format)
-    -w --wash           Wash the data (requires -i input file)
+    -f --feed           Feed the database with new malware analysis reports (.json format). Requires --input and --database
+    -t --target         Target (class) label for input file to feed to training set database.
     -u --urls            Extract .onion URLs from Tor classified malware sample reports
 """
 
@@ -57,27 +59,30 @@ def main(arguments):
     database_file = arguments['<training_database>']
     model = arguments['--model']
     urls = arguments['--urls']
-    wash = arguments['--wash']
-    input_file = arguments['--input']
+    feed = arguments['--feed']
+    input_file = arguments['<input_file>']
     print("Arguments: ", arguments)
+    # 
 
-    if(input_file):
-        rfe.open_database("tmp.db", input_file)
+    if input_file:
+        # Open and add to temporary SQLite DB. 2 stands for unkown tor label.
+        sha256 = rfe.open_database("db/training_set.db", input_file, 2)
+        print("Received ", sha256, " in return from fe.")
+        # If everything is OK. Continue with classification
+        #if database_file:
+        #    rmc.connect_to_database(False, database_file, False, True, sha256)
 
-    if(database_file):
-        # Connect to DB
-        rmc.connect_to_database(False, database_file, urls)
+        # If feed and class label (1 or 0), add to DB.
+        # if feed: 
+        #    rmc.connect_to_database(False, database_file,input_file)
 
-        # Create timer
-        start = timeit.default_timer()
+    if database_file:
+        # Connect to DB (connect, db, url, unknown_samples, sha256)
+        rmc.connect_to_database(False, database_file, urls, False, "")
 
         # Close DB connection
-        rmc.connect_to_database(True, database_file, urls)
+        rmc.connect_to_database(True, database_file, urls, False, "")
 
-        # Stop timer
-        stop = timeit.default_timer()
-        runtime = stop - start
-        slowprint("Run time: " + str(runtime))
 
 # Slow print strings
 def slowprint(string):
