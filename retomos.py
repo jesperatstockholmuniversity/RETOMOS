@@ -14,16 +14,14 @@ features from Cuckoo reports and retomos_malware_classifier.py that
 classifies Cuckoo reports as either Tor dependant or not.
 
 Usage:
-    retomos.py -i <input_file>
-    retomos.py -d <training_database> ./db/training.db
-    retomos.py -i <input_file.json> -m <classification_model>
-    retomos.py -t target/class label <0, or 1, or 2>
-    retomos.py -f -i <input_file.json> -t <0, or 1, or 2>
+    retomos.py -d <training_database>
+    retomos.py -i <input_file> -m <classification_model> -d <training_database>
+    retomos.py -f -i <input_file> -t <target> -d <training_database>
     retomos.py -u -d <training_database>
 
 Examples:
     retomos.py -d malware_behaviour_log.db
-    retomos.py -d malware_behaviour_log.db -m svm
+    retomos.py -i input_file.json -d malware_behaviour_log.db -m svm
     retomos.py -h | --help
     retomos.py -f -i <input_file.json> -d <database> -t 1
     retomos.py -i <input_file.json> -m <"nb", or "svm", or "lr", or "rf", or "dt", or "ALL" (default)>
