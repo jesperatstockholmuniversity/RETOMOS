@@ -1,7 +1,7 @@
 ## RETOMOS 
 
-- **Website:** https://www.numpy.org
-- **Documentation:** https://numpy.org/doc
+- **Website:** https://dsv.su.se
+
 
 RETOMOS is a small program for analsying and classifying Tor
 using malware samples based on API calls etc to find .onion services.

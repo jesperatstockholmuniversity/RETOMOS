@@ -15,31 +15,26 @@ classifies Cuckoo reports as either Tor dependant or not.
 
 Usage:
     retomos.py -i <input_file>
-    retomos.py -c <sha256>
-    retomos.py -d <training_database> [-m <classification_model>
-    | --model <classification_model>]
-    retomos.py -i <malware_analysis_file> -m <classification_model>
-    retomos.py -t target/class label
-    retomos.py -f -i <input_file>
-    retomos.py -i <input_file.json> -o <output_file.png>
+    retomos.py -d <training_database> ./db/training.db
+    retomos.py -i <input_file.json> -m <classification_model>
+    retomos.py -t target/class label <0, or 1, or 2>
+    retomos.py -f -i <input_file.json> -t <0, or 1, or 2>
     retomos.py -u -d <training_database>
 
 Examples:
     retomos.py -d malware_behaviour_log.db
-    retomos.py -d malware_behaviour_log.db -m naive_bayes
+    retomos.py -d malware_behaviour_log.db -m svm
     retomos.py -h | --help
-    retomos.py -f -i <input_file(s)> -d <database>
-    retomos.py -c <sha256>
+    retomos.py -f -i <input_file(s)> -d <database> -t 1
+    retomos.py --urls --feed --target 2 --model "ALL"
 
 Options:
     -i --input          Input file(s) to analyse (Cuckoo report in .json format)
-    -c --check          Check if hash sum (SHA256) exists in the database
-    -o --output         Output file for graphs (.png format)
     -m --model <classification_model>      The type of classification model to use
         SVM, LR, NB, or ALL (default: ALL) [default: ALL]
-    -d --database       Training database to use for the classification
+    -d --database       Training database to use for the classification. Mandatory argument.
     -f --feed           Feed the database with new malware analysis reports (.json format). Requires --input and --database
-    -t --target         Target (class) label for input file to feed to training set database.
+    -t --target         Target (class) label for input file to feed to training set database. 1 for Tor related, 0 for non-Tor related, and 2 (default) for unknown.
     -u --urls           Extract .onion URLs from Tor classified malware sample reports
 """
 
