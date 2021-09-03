@@ -25,8 +25,9 @@ Examples:
     retomos.py -d malware_behaviour_log.db
     retomos.py -d malware_behaviour_log.db -m svm
     retomos.py -h | --help
-    retomos.py -f -i <input_file(s)> -d <database> -t 1
-    retomos.py --urls --feed --target 2 --model "ALL"
+    retomos.py -f -i <input_file.json> -d <database> -t 1
+    retomos.py -i <input_file.json> -m <"nb", or "svm", or "lr", or "rf", or "dt", or "ALL" (default)>
+    retomos.py -u -f -t <0, or 1, or 2> -i <input_file.json>
 
 Options:
     -i --input          Input file(s) to analyse (Cuckoo report in .json format)

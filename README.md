@@ -27,7 +27,7 @@ classifies Cuckoo reports as either Tor dependant or not.
     Options:
         -i --input          Input file(s) to analyse (Cuckoo report in .json format)
         -m --model <classification_model>      The type of classification model to use
-            SVM, LR, NB, or ALL (default: ALL) [default: ALL]
+            SVM, LR, NB, RF, DT or ALL (default: ALL) [default: ALL]
         -d --database       Training database to use for the classification. Mandatory argument.
         -f --feed           Feed the database with new malware analysis reports (.json format). Requires --input and --database
         -t --target         Target (class) label for input file to feed to training set database. 1 for Tor related, 0 for non-Tor related, and 2 (default) for unknown.
