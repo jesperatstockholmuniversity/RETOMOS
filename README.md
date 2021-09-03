@@ -3,7 +3,7 @@
 - **Website:** https://dsv.su.se
 
 
-RETOMOS is a small program for analsying and classifying Tor
+RETOMOS (Recognition of Tor Malware and Onion Services) is a small program for analsying and classifying Tor
 using malware samples based on API calls etc to find .onion services.
 It consists of two scripts: retomos_featue_extractor.py that extracts 
 features from Cuckoo reports and retomos_malware_classifier.py that
