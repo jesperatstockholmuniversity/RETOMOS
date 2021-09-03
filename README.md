@@ -37,7 +37,7 @@ classifies Cuckoo reports as either Tor dependant or not.
         -u --url            Extract .onion URLs from Tor classified malware sample reports
 
 ## Nota bene
-This code is not beautiful. Neither is it fine-tuned and efficient. 
+This code is not beautiful. Neither is it fine-tuned nor very efficient, but it is a proof-of-concept. 
 
 ## Licence
 RETOMOS is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

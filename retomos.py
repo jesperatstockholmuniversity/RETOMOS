@@ -22,7 +22,7 @@ Usage:
     retomos.py -t target/class label
     retomos.py -f -i <input_file>
     retomos.py -i <input_file.json> -o <output_file.png>
-    retomos.py -u -i <input_file> -m <clssification_model>
+    retomos.py -u -d <training_database>
 
 Examples:
     retomos.py -d malware_behaviour_log.db
@@ -40,7 +40,7 @@ Options:
     -d --database       Training database to use for the classification
     -f --feed           Feed the database with new malware analysis reports (.json format). Requires --input and --database
     -t --target         Target (class) label for input file to feed to training set database.
-    -u --urls            Extract .onion URLs from Tor classified malware sample reports
+    -u --urls           Extract .onion URLs from Tor classified malware sample reports
 """
 
 # Import standard libraries
